@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.car.dao.CarDao;
+import com.example.car.exception.DataNotFoundException;
 import com.example.car.model.Cars;
 
 @Service
@@ -16,10 +17,15 @@ public class CarServiceImpl implements CarService {
 	private CarDao carDao;
 
 	@Override
-	public List<Cars> getCars(String country, Integer cont) {
+	public List<Cars> getCars(String country, Integer cont) throws DataNotFoundException {
 		System.out.println("CarServiceImpl.getCars()");
 		// TODO Auto-generated method stub
-		return carDao.getCars();
+		List<Cars> carList=carDao.getCars();
+		if(carList.isEmpty()) {
+			//System.out.println("CarList is Empty");
+			throw new DataNotFoundException("Empty Car List");
+		}
+		return carList;
 		//return new ArrayList<>();
 	}
 
