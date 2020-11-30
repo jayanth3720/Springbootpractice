@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.car.exception.DataNotFoundException;
 import com.example.car.model.Cars;
 import com.example.car.service.CarService;
 
@@ -21,7 +22,7 @@ public class CarController {
 private CarService carService;
 
 @GetMapping("/api/cars")
-public List<Cars> getCars(@RequestParam(value="country",required=false) String country, @RequestParam(value="cont",required=false) Integer cont ) {
+public List<Cars> getCars(@RequestParam(value="country",required=false) String country, @RequestParam(value="cont",required=false) Integer cont ) throws DataNotFoundException {
 	System.out.println("method calling"+" "+  country +" "+ cont);	
 	return carService.getCars(country,cont);
 	//return new ArrayList<Cars>();
